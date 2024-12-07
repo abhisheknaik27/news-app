@@ -28,36 +28,49 @@ const NewsApp = () => {
     setSearch(e.target.value);
   };
   return (
-    <div className="">
-      <div>
-        <input
-          type="text"
-          placeholder="Search News"
-          value={search}
-          onChange={handleInput}
-        />
-        <button onClick={fetchNews}>Search</button>
+    <div className="bg-gray-200 min-h-screen">
+      <div className="flex flex-col items-center py-6 bg-blue-200">
+        <h1 className="text-3xl font-bold text-black mb-4 uppercase">
+          Abhi's News App
+        </h1>
+        <div className="flex space-x-4">
+          <input
+            type="text"
+            placeholder="Search News"
+            value={search}
+            onChange={handleInput}
+            className="w-80 p-2 border rounded-lg text-lg"
+          />
+          <button
+            className="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-blue-100"
+            onClick={fetchNews}
+          >
+            Search
+          </button>
+        </div>
+      </div>
+      <div className="flex justify-center gap-6 mt-6 space-x-2">
+        {["sports", "politics", "entertainment", "health", "fitness"].map(
+          (category) => (
+            <button
+              key={category}
+              onClick={userInput}
+              value={category}
+              className="bg-blue-500  text-white px-5 py-3 mb-1 rounded-3xl hover:bg-blue-700"
+            >
+              {category.toUpperCase()}
+            </button>
+          )
+        )}
       </div>
 
-      <div className="">
-        <button onClick={userInput} value={"sports"}>
-          Sports
-        </button>
-        <button onClick={userInput} value={"politics"}>
-          Politics
-        </button>
-        <button onClick={userInput} value={"entertainment"}>
-          Entertainment
-        </button>
-        <button onClick={userInput} value={"health"}>
-          Health
-        </button>
-        <button onClick={userInput} value={"fitness"}>
-          Fitness
-        </button>
+      <div className="mt-6">
+        {newsData ? (
+          <Card data={newsData} />
+        ) : (
+          <p className="text-center">Loading...</p>
+        )}
       </div>
-
-      <div>{newsData ? <Card data={newsData} /> : null}</div>
     </div>
   );
 };
